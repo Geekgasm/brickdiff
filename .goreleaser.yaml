@@ -13,7 +13,7 @@ builds:
       - linux
       - windows
       - darwin
-    ldflags: -X build.Version={{.Version}} -X build.Commit={{.Commit}} -X build.Date={{.Date}}
+    ldflags: -X github.com/Geekgasm/brickdiff/build.Version={{.Version}} -X github.com/Geekgasm/brickdiff/build.Commit={{.Commit}} -X github.com/Geekgasm/brickdiff/build.Date={{.Date}}
 archives:
   - replacements:
       darwin: Darwin
