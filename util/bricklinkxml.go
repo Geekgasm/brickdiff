@@ -94,13 +94,17 @@ func getKey(item Item) ItemKey {
 	}
 }
 
-func PrintInventoryXML(inventory Inventory) {
+func PrintInventoryXML(inventory Inventory, multiline bool) {
 	tmp := struct {
 		Inventory
 		XMLName struct{} `xml:"INVENTORY"`
 	}{Inventory: inventory}
 
-	b, err := xml.MarshalIndent(tmp, "", "")
+	identation := ""
+	if multiline {
+		identation = "\r"
+	}
+	b, err := xml.MarshalIndent(tmp, "", identation)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error converting result inventory to XML: %v\n", err)
 		os.Exit(4)
