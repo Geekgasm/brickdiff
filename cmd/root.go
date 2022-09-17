@@ -4,15 +4,18 @@ Copyright © 2022 Oliver Götz <developer@geekgasm.eu>
 package cmd
 
 import (
+	"fmt"
 	"os"
 
+	"github.com/Geekgasm/brickdiff/build"
 	"github.com/spf13/cobra"
 )
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "brickdiff",
-	Short: "A command line tool for comparing Bricklink Wanted lists",
+	Use:     "brickdiff",
+	Short:   "A command line tool for comparing Bricklink Wanted lists",
+	Version: fmt.Sprintf("%v\ncommit:   %v\nbuilt at: %v", build.Version, build.Commit, build.Date),
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -33,5 +36,5 @@ func init() {
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
-	// rootCmd.Flags().BoolP("verbose", "v", false, "Verbose output")
+	rootCmd.Flags().BoolP("version", "v", false, "Print version information")
 }

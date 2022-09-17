@@ -1,6 +1,5 @@
 /*
-Copyright © 2022 NAME HERE <EMAIL ADDRESS>
-
+Copyright © 2022 Oliver Götz <developer@geekgasm.eu>
 */
 package main
 
