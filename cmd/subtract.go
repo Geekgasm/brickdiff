@@ -24,16 +24,18 @@ var subtractCmd = &cobra.Command{
 			os.Exit(1)
 		}
 		multiline, _ := cmd.Flags().GetBool("mulitline")
-		subtract(args[0], args[1], multiline)
+		outputfile, _ := cmd.Flags().GetString("o")
+		subtract(args[0], args[1], multiline, outputfile)
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(subtractCmd)
 	subtractCmd.Flags().BoolP("mulitline", "m", false, "Multiline output (useful for Windows shells)")
+	subtractCmd.Flags().String("o", "", "Name of output file (default output is to console)")
 }
 
-func subtract(bricklist1 string, bricklist2 string, multiline bool) {
+func subtract(bricklist1 string, bricklist2 string, multiline bool, outputfile string) {
 	// fmt.Printf("Opening file %v\n", bricklist1)
 	inventory1 := util.ReadList(bricklist1)
 	// printInventory(inventory1)
@@ -46,5 +48,5 @@ func subtract(bricklist1 string, bricklist2 string, multiline bool) {
 	// fmt.Printf("RESULT\n")
 	// printInventory(result)
 
-	util.PrintInventoryXML(result, multiline)
+	util.PrintInventoryXML(result, multiline, outputfile)
 }
