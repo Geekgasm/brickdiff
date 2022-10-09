@@ -32,5 +32,9 @@ Usage:
   brickdiff subtract bricklist1 bricklist2 [flags]
 
 Flags:
-  -h, --help   help for subtract
+  -c, --clipboard   Copy output to clipboard (default true)
+  -h, --help        help for subtract
+  -m, --mulitline   Multiline output (default is compact output)
+      --o string    Name of output file (default output is to clipboard)
+  -s, --stdout      Print output to console (stdout)
 ```

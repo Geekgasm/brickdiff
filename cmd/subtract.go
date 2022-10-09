@@ -24,18 +24,22 @@ var subtractCmd = &cobra.Command{
 			os.Exit(1)
 		}
 		multiline, _ := cmd.Flags().GetBool("mulitline")
+		clipboard, _ := cmd.Flags().GetBool("clipboard")
+		stdout, _ := cmd.Flags().GetBool("stdout")
 		outputfile, _ := cmd.Flags().GetString("o")
-		subtract(args[0], args[1], multiline, outputfile)
+		subtract(args[0], args[1], multiline, clipboard, stdout, outputfile)
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(subtractCmd)
-	subtractCmd.Flags().BoolP("mulitline", "m", false, "Multiline output (useful for Windows shells)")
-	subtractCmd.Flags().String("o", "", "Name of output file (default output is to console)")
+	subtractCmd.Flags().BoolP("clipboard", "c", true, "Copy output to clipboard")
+	subtractCmd.Flags().BoolP("mulitline", "m", false, "Multiline output (default is compact output)")
+	subtractCmd.Flags().BoolP("stdout", "s", false, "Print output to console (stdout)")
+	subtractCmd.Flags().String("o", "", "Name of output file (default output is to clipboard)")
 }
 
-func subtract(bricklist1 string, bricklist2 string, multiline bool, outputfile string) {
+func subtract(bricklist1 string, bricklist2 string, multiline bool, clipboard bool, stdout bool, outputfile string) {
 	// fmt.Printf("Opening file %v\n", bricklist1)
 	inventory1 := util.ReadList(bricklist1)
 	// printInventory(inventory1)
@@ -48,5 +52,13 @@ func subtract(bricklist1 string, bricklist2 string, multiline bool, outputfile s
 	// fmt.Printf("RESULT\n")
 	// printInventory(result)
 
-	util.PrintInventoryXML(result, multiline, outputfile)
+	xmlString := util.RenderXML(result, multiline)
+
+	if len(outputfile) > 0 {
+		util.WriteToFile(outputfile, xmlString)
+	} else if stdout {
+		fmt.Println(xmlString)
+	} else if clipboard {
+		util.CopyToClipboard(xmlString)
+	}
 }
