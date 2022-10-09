@@ -4,8 +4,6 @@ Copyright © 2022 Oliver Götz <developer@geekgasm.eu>
 package util
 
 import (
-	"bufio"
-
 	"encoding/xml"
 	"fmt"
 	"io/ioutil"
@@ -96,7 +94,7 @@ func getKey(item Item) ItemKey {
 	}
 }
 
-func PrintInventoryXML(inventory Inventory, multiline bool, outputfile string) {
+func RenderXML(inventory Inventory, multiline bool) string {
 	tmp := struct {
 		Inventory
 		XMLName struct{} `xml:"INVENTORY"`
@@ -111,44 +109,13 @@ func PrintInventoryXML(inventory Inventory, multiline bool, outputfile string) {
 		fmt.Fprintf(os.Stderr, "Error converting result inventory to XML: %v\n", err)
 		os.Exit(4)
 	}
-
-	var f *os.File
-	if len(outputfile) == 0 {
-		f = os.Stdout
-	} else {
-		os.Remove(outputfile)
-		f, err = os.OpenFile(outputfile, os.O_CREATE|os.O_WRONLY, 0644)
-		if err != nil {
-			fmt.Printf("Error opening output file %v: %v\n", outputfile, err)
-			os.Exit(5)
-		}
-		defer f.Close()
+	xmlString := "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+	if multiline {
+		xmlString += "\n"
 	}
-	writer := bufio.NewWriter(f)
-	writeStringOrExit(writer, outputfile, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
-	writeOrExit(writer, outputfile, b)
-	writeStringOrExit(writer, outputfile, "\n")
-	writer.Flush()
-	if len(outputfile) > 0 {
-		fmt.Printf("Output written to file %v\n", outputfile)
-	}
-}
-
-func writeStringOrExit(writer *bufio.Writer, outputfile string, outstring string) {
-	_, err := writer.WriteString(outstring)
-	exitOnWriteError(outputfile, err)
-}
-
-func writeOrExit(writer *bufio.Writer, outputfile string, b []byte) {
-	_, err := writer.Write(b)
-	exitOnWriteError(outputfile, err)
-}
-
-func exitOnWriteError(outputfile string, err error) {
-	if err != nil {
-		fmt.Printf("Error writing to output file %v: %v\n", outputfile, err)
-		os.Exit(6)
-	}
+	xmlString += string(b)
+	xmlString += "\n"
+	return xmlString
 }
 
 func PrintInventory(inventory Inventory) {
