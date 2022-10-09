@@ -47,7 +47,7 @@ brews:
     # gitlab or gitea)
     #
     # Default depends on the client.
-    url_template: "https://github.com/Geekgasm/brickdiff/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
+    # url_template: "https://github.com/Geekgasm/brickdiff/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
 
     # Allows you to set a custom download strategy. Note that you'll need
     # to implement the strategy and add it to your tap repository.
@@ -63,8 +63,8 @@ brews:
     # Git author used to commit to the repository.
     # Defaults are shown.
     commit_author:
-      name: goreleaserbot
-      email: bot@goreleaser.com
+      name: geekgasm
+      email: developer@geekgasm.eu
 
     # The project name and current git tag are used in the format string.
     commit_msg_template: "Brew formula update for {{ .ProjectName }} version {{ .Tag }}"
