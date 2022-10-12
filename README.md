@@ -37,7 +37,7 @@ To upgrade to the latest released version later, follow the same steps and simpl
 ## Usage
 
 ```
-> ./brickdiff --help
+> brickdiff --help
 A command line tool for comparing BrickLink Wanted lists
 
 Usage:
@@ -58,7 +58,7 @@ Use "brickdiff [command] --help" for more information about a command.
 ## Subtracting two wanted lists
 
 ```
-> ./brickdiff subtract --help
+> brickdiff subtract --help
 Subtracts two BrickLink Wanted lists in XML format and prints the output to the console
         If an item is in the first list, but not in the second, it will be unchanged
         If an iten is in both lists, the quantity in the second list is subtracted from the quantity in the first,
