@@ -17,6 +17,12 @@ brew install brickdiff
 
 Note: you might get asked for a github password, but you don't actually need to provide one.
 
+To upgrade to the latest released version later, type 
+
+```
+brew upgrade brickdiff
+```
+
 ### Manually downloading the binary (Windows, Mac and Linux)
 
 * Go to the [latest release page](https://github.com/Geekgasm/brickdiff/releases/) and download the zip file for your platform.
@@ -25,6 +31,8 @@ Note: you might get asked for a github password, but you don't actually need to 
 * In a cmd/Powershell/terminal window try executing it by typing `brickdiff.exe` (Windows) or `brickdiff` (Mac and Linux). It should print out a help message. (If you haven't copied the binary to a directory in your PATH you might need to specify the path where the binary is located.)
 
 Note: you might have to allow the execution in your system settings. Refer to the general instructions for your platform.
+
+To upgrade to the latest released version later, follow the same steps and simply replace the old version with the new one.
 
 ## Usage
 
@@ -79,9 +87,9 @@ You want to know what pieces you would need in addition to the parts you already
 
 First step is to obtain the parts list:
 
-* For a MOC you find on [Rebrickable](https://rebrickable.com) you can go to the MOC inventory, click on "Export Parts" and select "BrickLink XML". Copy the data from the popup window and save in into a file on your computer.
-* For a wanted list you already have in your [BrickLink Account](https://www.bricklink.com/v2/wanted/list.page), select the desired wanted list and click on "Download" to save the XML file to your computer.
-* For a MOC you have created in [BrickLink Studio](https://www.bricklink.com/v3/studio/download.page) use the "Add to Wanted List" feature to first upload the parts list as wanted list to your BrickLink account and then follow the steps in the previous bullet point.
+* For a MOC you find on [Rebrickable](https://rebrickable.com) you can go to the MOC inventory, click on _Export Parts_ and select _BrickLink XML_. Copy the data from the popup window and save in into a file on your computer.
+* For a wanted list you already have in your [BrickLink Account](https://www.bricklink.com/v2/wanted/list.page), select the desired wanted list and click on _Download_ to save the XML file to your computer.
+* For a MOC you have created in [BrickLink Studio](https://www.bricklink.com/v3/studio/download.page) select _File_ ➔ _Export As_ ➔ _Export as WL xml..._, select a name and location, and save the file.
 
 In the `examples` folder of this repository, you will find the parts list for the chicken and the rooster, so that you can more easily try this out.
 
@@ -104,12 +112,12 @@ Output copied to clipboard.
 To create the new wanted list with the result:
 
 1. Go to the [BrickLink Wanted List Upload Page](https://www.bricklink.com/v2/wanted/upload.page?utm_content=subnav)
-1. Click on "Upload BrickLink XML format"
-1. Select a wanted list you want to add the parts to or select "Create New Wanted List" from the dropdown and provide a name for it.
-1. Click on the area which says "Copy and paste here"
+1. Click on _Upload BrickLink XML format_
+1. Select a wanted list you want to add the parts to or select _Create New Wanted List_ from the dropdown and provide a name for it.
+1. Click on the area which says _Copy and paste here_
 1. Paste the content of your clipboard (Command-C on Mac, Ctrl-C on Windows, or use the context menu)
-1. Click on "Proceed to verify items". You should now see the list of parts with preview pictures.
-1. Click on "Add to Wanted List"
+1. Click on _Proceed to verify items_. You should now see the list of parts with preview pictures.
+1. Click on _Add to Wanted List_
 
 
 
