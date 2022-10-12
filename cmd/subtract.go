@@ -13,8 +13,8 @@ import (
 
 var subtractCmd = &cobra.Command{
 	Use:   "subtract bricklist1 bricklist2",
-	Short: "Subtracts two Bricklink Wanted lists in XML format and prints the output to the console",
-	Long: `Subtracts two Bricklink Wanted lists in XML format and prints the output to the console
+	Short: "Subtracts two BrickLink Wanted lists in XML format and prints the output to the console",
+	Long: `Subtracts two BrickLink Wanted lists in XML format and prints the output to the console
 	If an item is in the first list, but not in the second, it will be unchanged
 	If an iten is in both lists, the quantity in the second list is subtracted from the quantity in the first,
 	and if the result is >0 the item will be in the result with the remaining quantity.`,
@@ -26,7 +26,7 @@ var subtractCmd = &cobra.Command{
 		multiline, _ := cmd.Flags().GetBool("mulitline")
 		clipboard, _ := cmd.Flags().GetBool("clipboard")
 		stdout, _ := cmd.Flags().GetBool("stdout")
-		outputfile, _ := cmd.Flags().GetString("o")
+		outputfile, _ := cmd.Flags().GetString("outfile")
 		subtract(args[0], args[1], multiline, clipboard, stdout, outputfile)
 	},
 }
@@ -36,7 +36,7 @@ func init() {
 	subtractCmd.Flags().BoolP("clipboard", "c", true, "Copy output to clipboard")
 	subtractCmd.Flags().BoolP("mulitline", "m", false, "Multiline output (default is compact output)")
 	subtractCmd.Flags().BoolP("stdout", "s", false, "Print output to console (stdout)")
-	subtractCmd.Flags().String("o", "", "Name of output file (default output is to clipboard)")
+	subtractCmd.Flags().StringP("outfile", "o", "", "Name of output file (default output is to clipboard)")
 }
 
 func subtract(bricklist1 string, bricklist2 string, multiline bool, clipboard bool, stdout bool, outputfile string) {
