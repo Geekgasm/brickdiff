@@ -14,7 +14,7 @@ import (
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:     "brickdiff",
-	Short:   "A command line tool for comparing Bricklink Wanted lists",
+	Short:   "A command line tool for comparing BrickLink Wanted lists",
 	Version: fmt.Sprintf("%v\ncommit:   %v\nbuilt at: %v", build.Version, build.Commit, build.Date),
 }
 

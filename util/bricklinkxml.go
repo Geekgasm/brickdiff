@@ -18,11 +18,11 @@ type Item struct {
 	ItemType  string `xml:"ITEMTYPE"`
 	ItemID    string `xml:"ITEMID"`
 	Color     string `xml:"COLOR"`
-	Maxprice  string `xml:"MAXPRICE"`
+	Maxprice  string `xml:"MAXPRICE,omitempty"`
 	MinQTY    int    `xml:"MINQTY"`
-	Condition string `xml:"CONDITION"`
-	Remarks   string `xml:"REMARKS"`
-	Notify    string `xml:"NOTIFY"`
+	Condition string `xml:"CONDITION,omitempty"`
+	Remarks   string `xml:"REMARKS,omitempty"`
+	Notify    string `xml:"NOTIFY,omitempty"`
 }
 
 type ItemKey struct {
