@@ -100,7 +100,7 @@ If you want to know now what additional parts you need to build the rooster, you
 ```
 brickdiff subtract examples/rooster.xml examples/chicken.xml
 ```
-(Note: on Windows use the backslash "\" instead of the forward slash "/" to separate the folder names)
+(Note: on Windows use the backslash "\\" instead of the forward slash "/" to separate the folder names)
 
 You should see an output like:
 
