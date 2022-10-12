@@ -98,8 +98,9 @@ In the `examples` folder of this repository, you will find the parts list for th
 If you want to know now what additional parts you need to build the rooster, you use the `brickdiff` tool to simply subtract the chicken list from the rooster list by typing the following command in a terminal/cmd window:
 
 ```
-subtract examples/rooster.xml examples/chicken.xml
+brickdiff subtract examples/rooster.xml examples/chicken.xml
 ```
+(Note: on Windows use the backslash "\" instead of the forward slash "/" to separate the folder names)
 
 You should see an output like:
 
