@@ -7,7 +7,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Geekgasm/brickdiff/util"
+	"github.com/Geekgasm/brickdiff/bricklist"
+	"github.com/Geekgasm/brickdiff/output"
 	"github.com/spf13/cobra"
 )
 
@@ -41,24 +42,24 @@ func init() {
 
 func subtract(bricklist1 string, bricklist2 string, multiline bool, clipboard bool, stdout bool, outputfile string) {
 	// fmt.Printf("Opening file %v\n", bricklist1)
-	inventory1 := util.ReadList(bricklist1)
+	inventory1 := bricklist.ReadXmlList(bricklist1)
 	// printInventory(inventory1)
 
 	// fmt.Printf("Opening file %v\n", bricklist2)
-	inventory2 := util.ReadList(bricklist2)
+	inventory2 := bricklist.ReadXmlList(bricklist2)
 	// printInventory(inventory2)
 
-	result := util.CreateSubtractionInventory(inventory1, inventory2)
+	result := bricklist.CreateSubtractionInventory(inventory1, inventory2)
 	// fmt.Printf("RESULT\n")
 	// printInventory(result)
 
-	xmlString := util.RenderXML(result, multiline)
+	xmlString := bricklist.RenderXML(result, multiline)
 
 	if len(outputfile) > 0 {
-		util.WriteToFile(outputfile, xmlString)
+		output.WriteToFile(outputfile, xmlString)
 	} else if stdout {
 		fmt.Println(xmlString)
 	} else if clipboard {
-		util.CopyToClipboard(xmlString)
+		output.CopyToClipboard(xmlString)
 	}
 }
