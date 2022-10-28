@@ -23,10 +23,9 @@ type Item struct {
 }
 
 type ItemKey struct {
-	ItemType  string
-	ItemID    string
-	Color     string
-	Condition string
+	ItemType string
+	ItemID   string
+	Color    string
 }
 
 type ItemMap map[ItemKey]Item
@@ -42,10 +41,9 @@ func createItemMap(inventory Inventory) ItemMap {
 
 func getKey(item Item) ItemKey {
 	return ItemKey{
-		ItemType:  item.ItemType,
-		ItemID:    item.ItemID,
-		Color:     item.Color,
-		Condition: item.Condition,
+		ItemType: item.ItemType,
+		ItemID:   item.ItemID,
+		Color:    item.Color,
 	}
 }
 

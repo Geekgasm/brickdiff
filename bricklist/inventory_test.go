@@ -28,9 +28,6 @@ func TestCreateItemKey(t *testing.T) {
 	if key.Color != someItem.Color {
 		t.Fatalf(`key.Color was %v, expected %v`, key.Color, someItem.Color)
 	}
-	if key.Condition != someItem.Condition {
-		t.Fatalf(`key.Condition was %v, expected %v`, key.Condition, someItem.Condition)
-	}
 }
 
 func TestCreateItemMap(t *testing.T) {

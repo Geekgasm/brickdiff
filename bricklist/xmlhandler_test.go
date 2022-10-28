@@ -48,7 +48,7 @@ var item4 = Item{
 }
 
 func TestReadXmlList(t *testing.T) {
-	inventory := ReadXmlList("../examples/four_items.xml")
+	inventory := ReadXmlList("../testdata/four_items.xml")
 	itemMap := createItemMap(inventory)
 
 	if len(itemMap) != 4 {
@@ -62,7 +62,7 @@ func TestReadXmlList(t *testing.T) {
 
 func TestRenderXmlMultiline(t *testing.T) {
 	inventory := Inventory{Items: []Item{item1, item2, item3, item4}}
-	expectedXml := readFile(t, "../examples/four_items.xml")
+	expectedXml := readFile(t, "../testdata/four_items.xml")
 	renderedXml := RenderXML(inventory, true)
 	if renderedXml != expectedXml {
 		t.Fatalf(`Expected xml: "%v", but got "%v".`, expectedXml, renderedXml)
@@ -71,7 +71,7 @@ func TestRenderXmlMultiline(t *testing.T) {
 
 func TestRenderXmlSingleline(t *testing.T) {
 	inventory := Inventory{Items: []Item{item1, item2, item3, item4}}
-	expectedXml := readFile(t, "../examples/four_items.xml")
+	expectedXml := readFile(t, "../testdata/four_items.xml")
 	re := regexp.MustCompile(`\s*\n\s*`)
 	expectedXml = re.ReplaceAllString(expectedXml, "") + "\n"
 	renderedXml := RenderXML(inventory, false)
