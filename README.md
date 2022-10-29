@@ -44,32 +44,70 @@ Usage:
   brickdiff [command]
 
 Available Commands:
+  add         Adds two BrickLink Wanted lists in XML format
   completion  Generate the autocompletion script for the specified shell
   help        Help about any command
-  subtract    Subtracts two BrickLink Wanted lists in XML format and prints the output to the console
+  subtract    Subtracts two BrickLink Wanted lists in XML format
 
 Flags:
-  -h, --help      help for brickdiff
-  -v, --version   Print version information
+  -c, --clipboard        Copy output to clipboard (default true)
+  -h, --help             help for brickdiff
+  -m, --mulitline        Multiline output (default is compact output)
+  -o, --outfile string   Name of output file (default output is to clipboard)
+  -s, --stdout           Print output to console (stdout)
+  -v, --version          Print version information
 
 Use "brickdiff [command] --help" for more information about a command.
 ````
 
 ## Subtracting two wanted lists
 
+Subtracting two wanted lists is useful if you have modified your MOC digitally after already building a physical version. It allows you to easily find out which parts you need to make the changes on your physical build.
+
 ```
 > brickdiff subtract --help
-Subtracts two BrickLink Wanted lists in XML format and prints the output to the console
+Subtracts two BrickLink Wanted lists in XML format and copies the output to the clipboard or writes it to the console or a file.
         If an item is in the first list, but not in the second, it will be unchanged
-        If an iten is in both lists, the quantity in the second list is subtracted from the quantity in the first,
+        If an item is in both lists, the quantity in the second list is subtracted from the quantity in the first,
         and if the result is >0 the item will be in the result with the remaining quantity.
 
 Usage:
   brickdiff subtract bricklist1 bricklist2 [flags]
 
+Aliases:
+  subtract, sub, s
+
 Flags:
+  -h, --help   help for subtract
+
+Global Flags:
   -c, --clipboard        Copy output to clipboard (default true)
-  -h, --help             help for subtract
+  -m, --mulitline        Multiline output (default is compact output)
+  -o, --outfile string   Name of output file (default output is to clipboard)
+  -s, --stdout           Print output to console (stdout)
+```
+
+## Adding two wanted lists
+
+Adding two wanted is useful if you have digitally created parts of your MOC in separate files and now want to have a complete list for all the parts from the separate builds.
+
+```
+> brickdiff add --help
+Adds two BrickLink Wanted lists in XML format and copies the output to the clipboard or writes it to the console or a file.
+        If an item is in both lists, the quantities are added up in the result list.
+        If an item is in only one list, the item will be added to the reault list.
+
+Usage:
+  brickdiff add bricklist1 bricklist2 [flags]
+
+Aliases:
+  add, a
+
+Flags:
+  -h, --help   help for add
+
+Global Flags:
+  -c, --clipboard        Copy output to clipboard (default true)
   -m, --mulitline        Multiline output (default is compact output)
   -o, --outfile string   Name of output file (default output is to clipboard)
   -s, --stdout           Print output to console (stdout)
