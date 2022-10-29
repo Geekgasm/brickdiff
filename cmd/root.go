@@ -37,4 +37,8 @@ func init() {
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
 	rootCmd.Flags().BoolP("version", "v", false, "Print version information")
+	rootCmd.PersistentFlags().BoolP("clipboard", "c", true, "Copy output to clipboard")
+	rootCmd.PersistentFlags().BoolP("mulitline", "m", false, "Multiline output (default is compact output)")
+	rootCmd.PersistentFlags().BoolP("stdout", "s", false, "Print output to console (stdout)")
+	rootCmd.PersistentFlags().StringP("outfile", "o", "", "Name of output file (default output is to clipboard)")
 }
