@@ -47,7 +47,9 @@ Available Commands:
   add         Adds two BrickLink Wanted lists in XML format
   completion  Generate the autocompletion script for the specified shell
   help        Help about any command
+  intersect   Creates the intersection of two BrickLink Wanted lists in XML format
   subtract    Subtracts two BrickLink Wanted lists in XML format
+  union       Creates the union of two BrickLink Wanted lists in XML format
 
 Flags:
   -c, --clipboard        Copy output to clipboard (default true)
@@ -105,6 +107,57 @@ Aliases:
 
 Flags:
   -h, --help   help for add
+
+Global Flags:
+  -c, --clipboard        Copy output to clipboard (default true)
+  -m, --mulitline        Multiline output (default is compact output)
+  -o, --outfile string   Name of output file (default output is to clipboard)
+  -s, --stdout           Print output to console (stdout)
+```
+
+## Union of two wanted lists
+
+Building the union of two lists can be useful if you have two variations of a MOC and want to create a list for a 2-in-1 model. With the parts of the list either of the MOCs could be built, but not both at the same time.
+
+```
+> brickdiff union --help
+Creates the union of two BrickLink Wanted lists in XML format and copies the output to the clipboard or writes it to the console or a file.
+        If an item is in both lists, the item is added with the higher quantity to the result list.
+        If an item is in only one list, the item will be added to the result list.
+
+Usage:
+  brickdiff union bricklist1 bricklist2 [flags]
+
+Aliases:
+  union, u
+
+Flags:
+  -h, --help   help for union
+
+Global Flags:
+  -c, --clipboard        Copy output to clipboard (default true)
+  -m, --mulitline        Multiline output (default is compact output)
+  -o, --outfile string   Name of output file (default output is to clipboard)
+  -s, --stdout           Print output to console (stdout)
+```
+
+## Intersection of two wanted lists
+
+Intersecting two lists will result in a list that only contains parts that are present in both lists with the lower quantity for the part.
+
+```
+> brickdiff intersect --help
+Creates the intersection of two BrickLink Wanted lists in XML format and copies the output to the clipboard or writes it to the console or a file.
+        If an item is in both lists, the item is added with the lower quantity to the result list.
+
+Usage:
+  brickdiff intersect bricklist1 bricklist2 [flags]
+
+Aliases:
+  intersect, int, i
+
+Flags:
+  -h, --help   help for intersect
 
 Global Flags:
   -c, --clipboard        Copy output to clipboard (default true)
