@@ -1,5 +1,5 @@
 /*
-Copyright © 2022 Oliver Götz <developer@geekgasm.eu>
+Copyright © 2022-2023 Oliver Götz <developer@geekgasm.eu>
 */
 package cmd
 
@@ -28,11 +28,7 @@ var multiplyCmd = &cobra.Command{
 			fmt.Fprintf(os.Stderr, "Factor argument needs to be a positive integer number.\n")
 			os.Exit(1)
 		}
-		multiline, _ := cmd.Flags().GetBool("mulitline")
-		clipboard, _ := cmd.Flags().GetBool("clipboard")
-		stdout, _ := cmd.Flags().GetBool("stdout")
-		outputfile, _ := cmd.Flags().GetString("outfile")
-		multiply(args[0], factor, multiline, clipboard, stdout, outputfile)
+		multiply(args[0], factor, output.GetOutputOptions(cmd.Flags()))
 	},
 }
 
@@ -40,18 +36,9 @@ func init() {
 	rootCmd.AddCommand(multiplyCmd)
 }
 
-func multiply(bricklinklist string, factor int, multiline bool, clipboard bool, stdout bool, outputfile string) {
+func multiply(bricklinklist string, factor int, outOptions output.OutputOptions) {
 	inventory := bricklist.ReadXmlList(bricklinklist)
-
 	result := bricklist.Multiply(inventory, factor)
-
-	xmlString := bricklist.RenderXML(result, multiline)
-
-	if len(outputfile) > 0 {
-		output.WriteToFile(outputfile, xmlString)
-	} else if stdout {
-		fmt.Println(xmlString)
-	} else if clipboard {
-		output.CopyToClipboard(xmlString)
-	}
+	xmlString := bricklist.RenderXML(result, outOptions.Multiline)
+	output.Output(xmlString, outOptions)
 }

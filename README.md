@@ -53,10 +53,10 @@ Available Commands:
   union       Creates the union of two BrickLink Wanted lists in XML format
 
 Flags:
-  -c, --clipboard        Copy output to clipboard (default true)
+  -c, --clipboard        Copy output to clipboard (default)
   -h, --help             help for brickdiff
-  -m, --mulitline        Multiline output (default is compact output)
-  -o, --outfile string   Name of output file (default output is to clipboard)
+  -m, --multiline        Multiline output (default is compact output)
+  -o, --outfile string   Name of output file
   -s, --stdout           Print output to console (stdout)
   -v, --version          Print version information
 
@@ -84,9 +84,9 @@ Flags:
   -h, --help   help for subtract
 
 Global Flags:
-  -c, --clipboard        Copy output to clipboard (default true)
-  -m, --mulitline        Multiline output (default is compact output)
-  -o, --outfile string   Name of output file (default output is to clipboard)
+  -c, --clipboard        Copy output to clipboard (default)
+  -m, --multiline        Multiline output (default is compact output)
+  -o, --outfile string   Name of output file
   -s, --stdout           Print output to console (stdout)
 ```
 
@@ -110,9 +110,9 @@ Flags:
   -h, --help   help for add
 
 Global Flags:
-  -c, --clipboard        Copy output to clipboard (default true)
-  -m, --mulitline        Multiline output (default is compact output)
-  -o, --outfile string   Name of output file (default output is to clipboard)
+  -c, --clipboard        Copy output to clipboard (default)
+  -m, --multiline        Multiline output (default is compact output)
+  -o, --outfile string   Name of output file
   -s, --stdout           Print output to console (stdout)
 ```
 
@@ -136,9 +136,9 @@ Flags:
   -h, --help   help for union
 
 Global Flags:
-  -c, --clipboard        Copy output to clipboard (default true)
-  -m, --mulitline        Multiline output (default is compact output)
-  -o, --outfile string   Name of output file (default output is to clipboard)
+  -c, --clipboard        Copy output to clipboard (default)
+  -m, --multiline        Multiline output (default is compact output)
+  -o, --outfile string   Name of output file
   -s, --stdout           Print output to console (stdout)
 ```
 
@@ -160,9 +160,9 @@ Flags:
   -h, --help   help for multiply
 
 Global Flags:
-  -c, --clipboard        Copy output to clipboard (default true)
-  -m, --mulitline        Multiline output (default is compact output)
-  -o, --outfile string   Name of output file (default output is to clipboard)
+  -c, --clipboard        Copy output to clipboard (default)
+  -m, --multiline        Multiline output (default is compact output)
+  -o, --outfile string   Name of output file
   -s, --stdout           Print output to console (stdout)
 ```
 
@@ -185,9 +185,9 @@ Flags:
   -h, --help   help for intersect
 
 Global Flags:
-  -c, --clipboard        Copy output to clipboard (default true)
-  -m, --mulitline        Multiline output (default is compact output)
-  -o, --outfile string   Name of output file (default output is to clipboard)
+  -c, --clipboard        Copy output to clipboard (default)
+  -m, --multiline        Multiline output (default is compact output)
+  -o, --outfile string   Name of output file
   -s, --stdout           Print output to console (stdout)
 ```
 
