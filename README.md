@@ -48,6 +48,7 @@ Available Commands:
   completion  Generate the autocompletion script for the specified shell
   help        Help about any command
   intersect   Creates the intersection of two BrickLink Wanted lists in XML format
+  multiply    Multiplies the quantity of all parts in BrickLink Wanted list with a given factor
   subtract    Subtracts two BrickLink Wanted lists in XML format
   union       Creates the union of two BrickLink Wanted lists in XML format
 
@@ -133,6 +134,30 @@ Aliases:
 
 Flags:
   -h, --help   help for union
+
+Global Flags:
+  -c, --clipboard        Copy output to clipboard (default true)
+  -m, --mulitline        Multiline output (default is compact output)
+  -o, --outfile string   Name of output file (default output is to clipboard)
+  -s, --stdout           Print output to console (stdout)
+```
+
+## Multiplying a wanted list with a factor
+
+Imagine you have downloaded a wanted list for a MOC, and you want to order parts for multiples. This function allows you to multiply the quaontities of all the parts of a given wanted list with a given factor.
+
+```
+> brickdiff multiply --help
+Multiplies the quantity of all parts in a BrickLink Wanted list with a given positive integer number and copies the output to the clipboard or writes it to the console or a file.
+
+Usage:
+  brickdiff multiply bricklist factor [flags]
+
+Aliases:
+  multiply, mult, m
+
+Flags:
+  -h, --help   help for multiply
 
 Global Flags:
   -c, --clipboard        Copy output to clipboard (default true)

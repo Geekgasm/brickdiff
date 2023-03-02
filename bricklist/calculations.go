@@ -97,6 +97,16 @@ func IntersectInventories(inventory1 Inventory, inventory2 Inventory) Inventory 
 	return resultInventory
 }
 
+func Multiply(inventory Inventory, factor int) Inventory {
+	resultInventory := Inventory{}
+	for i := 0; i < len(inventory.Items); i++ {
+		resultItem := inventory.Items[i]
+		resultItem.MinQTY = resultItem.MinQTY * factor
+		resultInventory.Items = append(resultInventory.Items, resultItem)
+	}
+	return resultInventory
+}
+
 func max(x, y int) int {
 	if x > y {
 		return x
