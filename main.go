@@ -1,5 +1,5 @@
 /*
-Copyright © 2022 Oliver Götz <developer@geekgasm.eu>
+Copyright © 2022-2023 Oliver Götz <developer@geekgasm.eu>
 */
 package main
 

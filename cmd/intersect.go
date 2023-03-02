@@ -1,5 +1,5 @@
 /*
-Copyright © 2022 Oliver Götz <developer@geekgasm.eu>
+Copyright © 2022-2023 Oliver Götz <developer@geekgasm.eu>
 */
 package cmd
 
@@ -23,11 +23,7 @@ var intersectCmd = &cobra.Command{
 			fmt.Fprintf(os.Stderr, "Two arguments are required (filenames of the bricklink wanted lists)\n")
 			os.Exit(1)
 		}
-		multiline, _ := cmd.Flags().GetBool("mulitline")
-		clipboard, _ := cmd.Flags().GetBool("clipboard")
-		stdout, _ := cmd.Flags().GetBool("stdout")
-		outputfile, _ := cmd.Flags().GetString("outfile")
-		intersect(args[0], args[1], multiline, clipboard, stdout, outputfile)
+		intersect(args[0], args[1], output.GetOutputOptions(cmd.Flags()))
 	},
 }
 
@@ -35,19 +31,10 @@ func init() {
 	rootCmd.AddCommand(intersectCmd)
 }
 
-func intersect(bricklist1 string, bricklist2 string, multiline bool, clipboard bool, stdout bool, outputfile string) {
+func intersect(bricklist1 string, bricklist2 string, outOptions output.OutputOptions) {
 	inventory1 := bricklist.ReadXmlList(bricklist1)
 	inventory2 := bricklist.ReadXmlList(bricklist2)
-
 	result := bricklist.IntersectInventories(inventory1, inventory2)
-
-	xmlString := bricklist.RenderXML(result, multiline)
-
-	if len(outputfile) > 0 {
-		output.WriteToFile(outputfile, xmlString)
-	} else if stdout {
-		fmt.Println(xmlString)
-	} else if clipboard {
-		output.CopyToClipboard(xmlString)
-	}
+	xmlString := bricklist.RenderXML(result, outOptions.Multiline)
+	output.Output(xmlString, outOptions)
 }
