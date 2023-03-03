@@ -1,11 +1,11 @@
 module github.com/Geekgasm/brickdiff
 
-go 1.19
+go 1.20
 
 require (
-	github.com/spf13/cobra v1.5.0
+	github.com/spf13/cobra v1.6.1
 	github.com/spf13/pflag v1.0.5
-	golang.design/x/clipboard v0.6.2
+	golang.design/x/clipboard v0.6.3
 	gotest.tools/v3 v3.4.0
 )
 

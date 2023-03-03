@@ -1,0 +1,125 @@
+#!/usr/bin/env bash
+
+print_help() {
+cat << EOF
+Usage: release
+  - Check last release version and print it on the console
+
+Usage: release --version {version}
+Usage: release -v {version}
+  - Create a release with the given version number. 
+    Version has to be in the format "major.minor.micro"
+    If the given version matches the last release version nothing is done.
+
+Usage: release --major
+  - Creates a release by increasing the major version and setting minor 
+    and micro version to 0
+
+Usage: release --minor
+  - Creates a release by increasing the minor version and setting  
+    micro version to 0; major version is unchanged
+
+Usage: release --micro
+  - Creates a release by increasing the micro version; 
+    major and minor versions are unchanged
+
+Usage: release --help
+Usage: release -h
+  - Prints this help
+
+EOF
+}
+
+# Parse Arguments
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -v|--version)
+      VERSION="${2//v}"
+      shift # past argument
+      shift # past value
+      ;;
+    --major)
+      INCREASE_MAJOR=true
+      shift # past argument
+      ;;
+    --minor)
+      INCREASE_MINOR=true
+      shift # past argument
+      ;;
+    --micro)
+      INCREASE_MICRO=true
+      shift # past argument
+      ;;
+    -h|--help)
+      print_help
+      exit
+      ;;
+    -*)
+      echo "Unknown option $1"
+      exit 1
+      ;;
+    *)
+      ;;
+  esac
+done
+
+verify_clean_git() {
+  if [[ -n $(git status -s) ]]; then
+    >&2 echo "Git working directory is dirty. goreleaser won't run. Aborting!"
+    exit 1
+  fi
+}
+
+get_latest_version() {
+  version=$(git tag | tail -n 1)
+  echo "${version//v}"
+}
+
+do_release() {
+  local -r version="$1"
+
+  echo "Creating release for version ${version}"
+  git tag -a "v${version}" -m "sap2go version ${version}"
+  git push origin "v${version}"
+  goreleaser --clean
+}
+
+confirm() {
+  local -r prompt="$1"
+  read -rp "${prompt} (yes/no)" yn
+  case $yn in
+    [Yy]* ) return;;
+    * ) echo "Only y(es) will proceed, aborting"; exit;;
+  esac
+}
+
+LAST_RELEASE_VERSION="$(get_latest_version)"
+echo "Last released version: ${LAST_RELEASE_VERSION}"
+if [[ -n $VERSION ]]; then
+  echo "Using requested version ${VERSION}"
+  NEW_VERSION="${VERSION}"
+else
+  IFS="." read -r -a v <<< "${LAST_RELEASE_VERSION}"
+  if [[ -n $INCREASE_MAJOR ]]; then
+    echo "Increasing Major Version"
+    ((v[0]++))
+    v[1]=0
+    v[2]=0
+  elif [[ -n $INCREASE_MINOR ]]; then
+    echo "Increasing Minor Version"
+    ((v[1]++))
+    v[2]=0
+  elif [[ -n $INCREASE_MICRO ]]; then
+    echo "Increasing Micro Version"
+    ((v[2]++))
+  fi
+  NEW_VERSION="${v[0]}.${v[1]}.${v[2]}" 
+fi
+if [[ "${NEW_VERSION}" == "${LAST_RELEASE_VERSION}" ]]; then
+  echo "No version change. Nothing to do"
+  exit
+fi
+echo "New version: ${NEW_VERSION}"
+verify_clean_git
+confirm "Create release for new version ${NEW_VERSION}?"
+do_release "${NEW_VERSION}"
