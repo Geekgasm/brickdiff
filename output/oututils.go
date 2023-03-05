@@ -21,7 +21,7 @@ func GetOutputOptions(flags *pflag.FlagSet) OutputOptions {
 	clipboard, _ := flags.GetBool("clipboard")
 	stdout, _ := flags.GetBool("stdout")
 	outputfile, _ := flags.GetString("outfile")
-	if len(outputfile) == 0 && !multiline && !stdout {
+	if len(outputfile) == 0 && !stdout {
 		clipboard = true
 	}
 	return OutputOptions{
