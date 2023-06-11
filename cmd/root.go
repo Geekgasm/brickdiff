@@ -41,4 +41,5 @@ func init() {
 	rootCmd.PersistentFlags().BoolP("multiline", "m", false, "Multiline output (default is compact output)")
 	rootCmd.PersistentFlags().BoolP("stdout", "s", false, "Print output to console (stdout)")
 	rootCmd.PersistentFlags().StringP("outfile", "o", "", "Name of output file")
+	rootCmd.PersistentFlags().IntP("chunksize", "l", 0, "Maximum chunk size limit for the output files; longer lists will be split into several XML documents")
 }

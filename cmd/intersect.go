@@ -35,6 +35,6 @@ func intersect(bricklist1 string, bricklist2 string, outOptions output.OutputOpt
 	inventory1 := bricklist.ReadXmlList(bricklist1)
 	inventory2 := bricklist.ReadXmlList(bricklist2)
 	result := bricklist.IntersectInventories(inventory1, inventory2)
-	xmlString := bricklist.RenderXML(result, outOptions.Multiline)
+	xmlString := bricklist.RenderXML(result, outOptions.Multiline, outOptions.ChunkSize)
 	output.Output(xmlString, outOptions)
 }

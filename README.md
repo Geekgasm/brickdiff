@@ -47,12 +47,14 @@ Available Commands:
   add         Adds two BrickLink Wanted lists in XML format
   completion  Generate the autocompletion script for the specified shell
   help        Help about any command
+  id          Idenity function: output list will be the same as the input list
   intersect   Creates the intersection of two BrickLink Wanted lists in XML format
   multiply    Multiplies the quantity of all parts in BrickLink Wanted list with a given factor
   subtract    Subtracts two BrickLink Wanted lists in XML format
   union       Creates the union of two BrickLink Wanted lists in XML format
 
 Flags:
+  -l, --chunksize int    Maximum chunk size limit for the output files. Longer lists will be split into several files. Can not be combined with the clipboard option
   -c, --clipboard        Copy output to clipboard (default)
   -h, --help             help for brickdiff
   -m, --multiline        Multiline output (default is compact output)
@@ -191,7 +193,31 @@ Global Flags:
   -s, --stdout           Print output to console (stdout)
 ```
 
-# Example
+## Identity function
+
+To allow for splitting a list without performing any transformation function, the `id` function was added. But it also can serve to just validate an XML file.
+
+```
+> brickdiff id --help
+Parses the input list and outputs it again.
+        Can be used to split up a list in conjunction with the --chunksize/-l option.
+        Can be used to validate the format of the input list.
+
+Usage:
+  brickdiff id bricklist [flags]
+
+Flags:
+  -h, --help   help for id
+
+Global Flags:
+  -l, --chunksize int    Maximum chunk size limit for the output files. Longer lists will be split into several files. Can not be combined with the clipboard option
+  -c, --clipboard        Copy output to clipboard (default)
+  -m, --multiline        Multiline output (default is compact output)
+  -o, --outfile string   Name of output file
+  -s, --stdout           Print output to console (stdout)
+```
+
+# Examples
 
 Let's assume that you have the parts for my [Funny Birds: Chicken](https://rebrickable.com/mocs/MOC-71294/olivercgoetz/funny-birds-chicken/#details). 
 
@@ -224,9 +250,28 @@ You should see an output like:
 Output copied to clipboard.
 ```
 
+## Splitting a list in smaller chunks
+
+Sometimes it's useful to split up a long list into smaller chunks. For example, when ordering from the LEGO "Pick a Brick" service, there is a limit of how many lots can be added in one order. To that end, there is an output option `--chunkzize` that limits the number of lots to include in each output XML document. When using in conjunction with the `--outfile` output option, this will result in several files with a trailing number (starting with 1) in case the result list is longer than the chunksize.
+
+```
+> brickdiff id examples/rooster.xml --chunksize 10 --outfile rooster-chunk.xml
+Output written to file rooster-chunk-1.xml
+Output written to file rooster-chunk-2.xml
+Output written to file rooster-chunk-3.xml
+```
+
+This will create three XML files with 10, 10 and 1 lot (the original file has 21 lots):
+```
+> ls -l rooster-chunk-* 
+-rw-r--r--  1 olivergotz  staff  976 Jun 11 14:16 rooster-chunk-1.xml
+-rw-r--r--  1 olivergotz  staff  969 Jun 11 14:16 rooster-chunk-2.xml
+-rw-r--r--  1 olivergotz  staff  158 Jun 11 14:16 rooster-chunk-3.xml
+```
+
 ## Uploading the parts list to BrickLink
 
-To create the new wanted list with the result:
+To create the new wanted list on Bricklink with the result from `brickdiff`:
 
 1. Go to the [BrickLink Wanted List Upload Page](https://www.bricklink.com/v2/wanted/upload.page?utm_content=subnav)
 1. Click on _Upload BrickLink XML format_
@@ -236,5 +281,12 @@ To create the new wanted list with the result:
 1. Click on _Proceed to verify items_. You should now see the list of parts with preview pictures.
 1. Click on _Add to Wanted List_
 
+## Ordering parts from LEGO Pick a Brick
+
+The XML files cannot be directly uploaded to the _LEGO Pick a Brick_ service for ordering single parts, as this service is designed to be used interactively in a web browser.
+
+Fortunately, other talented LEGO fans have developed a browser plugin [BrickHunter](https://github.com/BrickTwo/BrickHunter) which can import brick lists in different formats, including the Bricklink XML format. BrickHunter is an open source project, and you can install the plugin for Google Chrome, Microsoft Edge and Mozilla Firefox browsers from their respective extensions store.
+
+Note that you might need to split up longer wanted lists, as there are limitations how many lots can be ordered at once from LEGO. The BrickHunter pluging will just report a warning that the list was not transferred to the LEGO shopping cart.
 
 

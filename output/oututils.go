@@ -5,6 +5,7 @@ package output
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/spf13/pflag"
 )
@@ -14,6 +15,7 @@ type OutputOptions struct {
 	Clipboard  bool
 	Stdout     bool
 	OutputFile string
+	ChunkSize  int
 }
 
 func GetOutputOptions(flags *pflag.FlagSet) OutputOptions {
@@ -21,6 +23,7 @@ func GetOutputOptions(flags *pflag.FlagSet) OutputOptions {
 	clipboard, _ := flags.GetBool("clipboard")
 	stdout, _ := flags.GetBool("stdout")
 	outputfile, _ := flags.GetString("outfile")
+	chunksize, _ := flags.GetInt("chunksize")
 	if len(outputfile) == 0 && !stdout {
 		clipboard = true
 	}
@@ -29,17 +32,30 @@ func GetOutputOptions(flags *pflag.FlagSet) OutputOptions {
 		Clipboard:  clipboard,
 		Stdout:     stdout,
 		OutputFile: outputfile,
+		ChunkSize:  chunksize,
 	}
 }
 
-func Output(output string, options OutputOptions) {
+func Output(output []string, options OutputOptions) {
 	if options.Stdout {
-		fmt.Println(output)
+		fmt.Println(strings.Join(output, "\n"))
+	}
+	baseFilename := options.OutputFile
+	fileExtension := ""
+	if pos := strings.LastIndexByte(options.OutputFile, '.'); pos != -1 {
+		baseFilename = options.OutputFile[:pos]
+		fileExtension = options.OutputFile[pos:]
 	}
 	if len(options.OutputFile) > 0 {
-		WriteToFile(options.OutputFile, output)
+		if len(output) == 0 {
+			WriteToFile(options.OutputFile, output[0])
+		} else {
+			for i := 0; i < len(output); i++ {
+				WriteToFile(fmt.Sprintf("%v-%v%v", baseFilename, i+1, fileExtension), output[i])
+			}
+		}
 	}
 	if options.Clipboard {
-		CopyToClipboard(output)
+		CopyToClipboard(strings.Join(output, "\n"))
 	}
 }
