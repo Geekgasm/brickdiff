@@ -39,6 +39,6 @@ func init() {
 func multiply(bricklinklist string, factor int, outOptions output.OutputOptions) {
 	inventory := bricklist.ReadXmlList(bricklinklist)
 	result := bricklist.Multiply(inventory, factor)
-	xmlString := bricklist.RenderXML(result, outOptions.Multiline)
+	xmlString := bricklist.RenderXML(result, outOptions.Multiline, outOptions.ChunkSize)
 	output.Output(xmlString, outOptions)
 }

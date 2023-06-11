@@ -63,7 +63,7 @@ func TestReadXmlList(t *testing.T) {
 func TestRenderXmlMultiline(t *testing.T) {
 	inventory := Inventory{Items: []Item{item1, item2, item3, item4}}
 	expectedXml := readFile(t, "../testdata/four_items.xml")
-	renderedXml := RenderXML(inventory, true)
+	renderedXml := RenderSingleXML(inventory, true)
 	if renderedXml != expectedXml {
 		t.Fatalf(`Expected xml: "%v", but got "%v".`, expectedXml, renderedXml)
 	}
@@ -74,7 +74,7 @@ func TestRenderXmlSingleline(t *testing.T) {
 	expectedXml := readFile(t, "../testdata/four_items.xml")
 	re := regexp.MustCompile(`\s*\n\s*`)
 	expectedXml = re.ReplaceAllString(expectedXml, "") + "\n"
-	renderedXml := RenderXML(inventory, false)
+	renderedXml := RenderSingleXML(inventory, false)
 	if renderedXml != expectedXml {
 		t.Fatalf(`Expected xml: "%v", but got "%v".`, expectedXml, renderedXml)
 	}

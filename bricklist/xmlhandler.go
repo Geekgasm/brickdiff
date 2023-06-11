@@ -29,7 +29,16 @@ func ReadXmlList(filename string) Inventory {
 	return inventory
 }
 
-func RenderXML(inventory Inventory, multiline bool) string {
+func RenderXML(inventory Inventory, multiline bool, chunkSize int) []string {
+	var xmlStrings []string
+	inventoryChunks := splitInventory(inventory, chunkSize)
+	for i := 0; i < len(inventoryChunks); i++ {
+		xmlStrings = append(xmlStrings, RenderSingleXML(inventoryChunks[i], multiline))
+	}
+	return xmlStrings
+}
+
+func RenderSingleXML(inventory Inventory, multiline bool) string {
 	tmp := struct {
 		Inventory
 		XMLName struct{} `xml:"INVENTORY"`

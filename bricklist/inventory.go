@@ -47,6 +47,21 @@ func getKey(item Item) ItemKey {
 	}
 }
 
+func splitInventory(inventory Inventory, chunkSize int) []Inventory {
+	if chunkSize < 1 {
+		return []Inventory{inventory}
+	}
+	numberOfItems := len(inventory.Items)
+	numberOfChunks := (numberOfItems-1)/chunkSize + 1
+	inventories := make([]Inventory, numberOfChunks)
+	for i := 0; i < numberOfChunks; i++ {
+		inventoryChunk := Inventory{}
+		inventoryChunk.Items = inventory.Items[i*chunkSize : min((i+1)*chunkSize, numberOfItems)]
+		inventories[i] = inventoryChunk
+	}
+	return inventories
+}
+
 func PrintInventory(inventory Inventory) {
 	for i := 0; i < len(inventory.Items); i++ {
 		fmt.Println("ITEMTYPE: " + inventory.Items[i].ItemType)
